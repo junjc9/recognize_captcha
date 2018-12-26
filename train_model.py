@@ -11,9 +11,9 @@ from keras.layers.core import Flatten, Dense
 from helpers import resize_to_fit
 
 
-LETTER_IMAGES_FOLDER = "ext_letter"
-MODEL_FILENAME = "captcha_model.hdf5"
-MODEL_LABELS_FILENAME = "model_labels.dat"
+IMG_DIR_OUTPUT_CHARACTER = "img_output_character"
+MODEL_DIR_CAPTCHA = "model_captcha.hdf5"
+MODEL_DIR_LABEL = "model_labels.dat"
 
 
 # initialize the data and labels
@@ -23,10 +23,10 @@ labels = []
 
 # loop over the input images
 # 遍历输入图像
-for image_file in paths.list_images(LETTER_IMAGES_FOLDER):
+for img_character in paths.list_images(IMG_DIR_OUTPUT_CHARACTER):
     # Load the image and convert it to grayscale
     # 加载图像并将其转换为灰度
-    image = cv2.imread(image_file)
+    image = cv2.imread(img_character)
     image = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
 
     # Resize the letter so it fits in a 20x20 pixel box
@@ -39,7 +39,7 @@ for image_file in paths.list_images(LETTER_IMAGES_FOLDER):
 
     # Grab the name of the letter based on the folder it was in
     # 根据它所在的文件夹抓取该字母的名称
-    label = image_file.split(os.path.sep)[-2]
+    label = img_character.split(os.path.sep)[-2]
 
     # Add the letter image and it's label to our training data
     # 将字母图像及其标签添加到我们的训练数据中
@@ -66,7 +66,7 @@ Y_test = lb.transform(Y_test)
 # We'll need this later when we use the model to decode what it's predictions mean
 # 保存从标签到一位有效编码的映射。
 # 当我们使用模型来解码它的预测意味着什么时，我们将需要这个
-with open(MODEL_LABELS_FILENAME, "wb") as f:
+with open(MODEL_DIR_LABEL, "wb") as f:
     pickle.dump(lb, f)
 
 # Build the neural network!
@@ -102,4 +102,4 @@ model.fit(X_train, Y_train, validation_data=(X_test, Y_test), batch_size=32, epo
 
 # Save the trained model to disk
 # 将训练过的模型保存到磁盘
-model.save(MODEL_FILENAME)
+model.save(MODEL_DIR_CAPTCHA)
