@@ -67,8 +67,9 @@ Epoch 9/10
 Epoch 10/10
 29058/29058 [==============================] - 74s 3ms/step - loss: 3.6896e-06 - acc: 1.0000 - val_loss: 0.0053 - val_acc: 0.9988
 ```
-PS C:\Users\j8\Pictures\captcha\solving_captchas>
-PS C:\Users\j8\Pictures\captcha\solving_captchas> python .\solve_captchas_with_model.py
+
+```sh
+$ python .\solve_captchas_with_model.py
 Using TensorFlow backend.
 2018-12-11 15:12:26.439293: I tensorflow/core/platform/cpu_feature_guard.cc:141] Your CPU supports instructions that this TensorFlow binary was not compiled to use: AVX2
 验证码包含的文本内容是: MXSB
@@ -80,7 +81,7 @@ Using TensorFlow backend.
 验证码包含的文本内容是: G2D4
 验证码包含的文本内容是: JPNX
 验证码包含的文本内容是: XVSZ
-PS C:\Users\j8\Pictures\captcha\solving_captchas>
+```
 
 运行完毕会出现**captcha_model.hdf5**和**model_labels.dat**
 
